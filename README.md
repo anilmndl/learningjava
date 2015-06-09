@@ -1,2 +1,2 @@
 # learningjava
-justpracticing
+just practicing
