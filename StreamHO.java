@@ -45,13 +45,30 @@ public class StreamHO {
         empStream.filter(filterSalary).forEach((x) -> System.out.println(x));
         
         
+        System.out.println("\n\n--------------**Average salary of employees**-----------");
+        empStream = employees.stream();
+        ToDoubleFunction<Employee> getDouble = x -> x.salary; 
+        double average = empStream.mapToDouble(getDouble).average().getAsDouble();
+        System.out.println("The average salary is: $" + average);
         
-        //need to do
-        /*
-        E. find the average salary of employee
-        F. sort the employees based on name
-        G. sort the employees on department  and then sort by their name.
-        */    
+        
+        System.out.println("\n\n--------------**Sort Employeed Based Name**-----------");
+        Comparator<Employee> nameComparer = (e1, e2)-> e1.name.compareTo(e2.name);
+        empStream = employees.stream();
+        System.out.println(
+                empStream
+                .sorted(nameComparer)
+                .collect(Collectors.toList())
+        );
+        
+        System.out.println("\n\n--------------**Sort Employeed Based on Department then by Name**-----------");
+        Comparator<Employee> deptComparer = (e1, e2)-> e1.department.compareTo(e2.department);
+        empStream = employees.stream();
+        System.out.println(
+                empStream
+                .sorted(deptComparer.thenComparing(nameComparer))
+                .collect(Collectors.toList())
+        );   
     }
 }
 
