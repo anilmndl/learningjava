@@ -1,0 +1,78 @@
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author amandal
+ */
+public class Calculator {
+    public static void main(String[] args) {
+        System.out.println("Available Operations");
+        System.out.println("Add : 1");
+        System.out.println("Subtract : 2");
+        System.out.println("Multiply : 3");
+        System.out.println("Divide : 4");
+        System.out.println("Quit : 0");
+        
+        int userInput;
+        do{
+            userInput = getUserChoice();
+            calculate(userInput);
+        } while(userInput != 0);
+    }
+    
+    public static int getUserChoice(){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Your Choice: ");
+        
+        return input.nextInt();   
+    }
+    
+     public static double getUserInput(String displayText){
+        Scanner input = new Scanner(System.in);
+        System.out.print(displayText + ": ");
+        
+        return input.nextDouble();   
+    }
+    
+    
+    public static void calculate(Integer userInput){
+        double firstNum;
+        double secondNum;
+        double result;
+               
+        switch(userInput){
+            case 1:
+                firstNum = getUserInput("First Number");
+                secondNum = getUserInput("Second Number");
+                result = firstNum + secondNum;
+                System.out.println("Result: " + result );
+                break;
+            case 2:
+                firstNum = getUserInput("First Number");
+                secondNum = getUserInput("Second Number");
+                result = firstNum - secondNum;
+                System.out.println("Result: " + result );
+                break;
+            case 3:
+                firstNum = getUserInput("First Number");
+                secondNum = getUserInput("Second Number");
+                result = firstNum * secondNum;
+                System.out.println("Result: " + result );
+                break;
+            case 4:
+                firstNum = getUserInput("First Number");
+                secondNum = getUserInput("Second Number");
+                result = firstNum / secondNum;
+                System.out.println("Result: " + result );
+                break;
+            default:
+                System.out.println("Invalid entry. Please try again.");
+                break;
+             
+        }
+                   
+    }
+    
+    
+}
