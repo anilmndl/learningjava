@@ -1,0 +1,71 @@
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/*
+ * Create 3 threads and print its name with a random number
+ * Create a master thread that fills an array and create two servant thread who prints the array elements.
+ */
+
+/**
+ * @author anil mandal
+ */
+public class ThreadHO {
+    int[] intArray = new int[7];
+    public static void main(String[] args) throws InterruptedException {
+       
+        //first half
+        Runnable r1 = ()->System.out.println(Thread.currentThread().getName() + " " + (int) (Math.random() * 100) );
+        Runnable r2 = ()->System.out.println(Thread.currentThread().getName() + " " + (int) (Math.random() * 100) );
+        Runnable r3 = ()->System.out.println(Thread.currentThread().getName() + " " + (int) (Math.random() * 100) );
+        
+        Thread t1 = new Thread(r1);
+        Thread t2 = new Thread(r2);
+        Thread t3 = new Thread(r3);
+        
+        t1.start();
+        t2.start();
+        t3.start();
+        
+        //second half
+        List<Integer> myArray = new ArrayList<>();
+       
+        
+        Thread masterThread = new Thread(new Runnable(){
+            public void run(){
+                myArray.add(6);
+                myArray.add(5);
+                myArray.add(3);
+                try {
+                    Thread.sleep(500);  //just to demonstrate Thread.join() capability
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ThreadHO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                myArray.add(8);
+                myArray.add(10);
+                myArray.add(7);
+                myArray.add(2);
+            }
+        });
+        
+         Thread slaveThread1 = new Thread(new Runnable (){
+            public void run(){
+                System.out.println("Printer by slaveThread1 " + myArray);
+            }
+        });
+         
+        Thread slaveThread2 = new Thread(new Runnable (){
+            public void run(){
+                System.out.println("Printer by slaveThread2 " + myArray);
+            }
+        });
+        
+        masterThread.start();
+        masterThread.join();
+        slaveThread1.start();
+        slaveThread2.start();
+        
+    }
+}
