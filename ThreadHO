@@ -52,13 +52,13 @@ public class ThreadHO {
         
          Thread slaveThread1 = new Thread(new Runnable (){
             public void run(){
-                System.out.println("Printer by slaveThread1 " + myArray);
+                System.out.println("Printed by slaveThread1 " + myArray);
             }
         });
          
         Thread slaveThread2 = new Thread(new Runnable (){
             public void run(){
-                System.out.println("Printer by slaveThread2 " + myArray);
+                System.out.println("Printed by slaveThread2 " + myArray);
             }
         });
         
