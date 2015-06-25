@@ -1,0 +1,62 @@
+
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
+/**
+ * @author amandal
+ */
+public class ExecutorHO {
+    public static void main(String[] args) {
+
+        ExecutorService exService = Executors.newFixedThreadPool(4);
+        
+        exService.execute(()->System.out.println("I am executed because I am runnable and passed using lambda expression"));
+        exService.execute(new Runnable(){
+            public void run(){
+                System.out.println("I am executed because I am runnable and passed using anoynomous class");
+            }
+        });
+        
+        exService.submit(()->System.out.println("I am submitted because I am runnable and passed using lambda expression"));
+        exService.submit(new Runnable(){
+            public void run(){
+                System.out.println("I am submitted because I am runnable and passed using anoynomous class");
+            }
+        });
+        
+        Future<String> future = exService.submit(new Callable(){
+            @Override
+            public String call() throws Exception {
+                return "Hello! I am returned from Future.get() Callable anoynomous class ";
+            }
+        });
+        
+        try {
+            System.out.println(future.get());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+                
+        
+        exService.shutdown();
+    }
+}
+class Runner implements Runnable {
+    String message;
+    
+    Runner(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public void run() {
+        System.out.println(message);
+       
+    }
+}
